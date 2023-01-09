@@ -10,7 +10,7 @@ import {
     Button,
 } from "./style";
 import { SiGithub } from "react-icons/si";
-import me from "../../img/me.JPG";
+import me from "../../img/me.jpg";
 
 const About = () => {
     return (
