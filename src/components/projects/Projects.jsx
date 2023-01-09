@@ -26,7 +26,6 @@ const projects = [
         name: 'Chatter',
         desc: 'Currently developing a user-friendly social media website using MERN stack. Implemented Socket.io for chatting, Redux toolkit for state management, JWT for authentication, react-hook-forms for validation.',
         github: 'https://github.com/Sillu8/Social-Media-MERN',
-        site: 'https://chat.ecart.ltd',
         image: chatter
     },
     {
