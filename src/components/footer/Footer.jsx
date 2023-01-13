@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import {
     Button,
@@ -17,26 +17,25 @@ import {
 } from "./style";
 import { SiGithub, SiGmail } from "react-icons/si";
 import contact from "../../svg/undraw_contact_us_-15-o2.svg";
+import toast from 'react-hot-toast'
 
 const SERVICE_ID = process.env.REACT_APP_SERVICE_ID;
 const TEMPLATE_ID = process.env.REACT_APP_TEMPLATE_ID;
 const PUBLIC_KEY = process.env.REACT_APP_PUBLIC_KEY;
 
 const Footer = () => {
+
+    const form = useRef();
+
     const sendEmail = async (e) => {
         e.preventDefault();
         try {
-            const result = await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, PUBLIC_KEY);
-            console.log(result)
+            const res = await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY);
+            if(res.status === 200) toast.success('Your mail has been successfully sent.')
         } catch (error) {
             console.log(error);
+            toast.error('Sorry, some unknown error!')
         }
-        // emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, USER_ID)
-        //     .then(result => {
-        //         console.log(result.text);
-        //     }).catch(error => {
-        //         console.log(error.text);
-        //     })
         e.target.reset();
     };
 
@@ -48,15 +47,15 @@ const Footer = () => {
                     <ImageContainer>
                         <Image src={contact} />
                     </ImageContainer>
-                    <ContactForm onSubmit={sendEmail}>
+                    <ContactForm ref={form} onSubmit={sendEmail}>
                         <InputContainer>
-                            <Item type="text" placeholder="Name" name="name" required />
+                            <Item type="text" placeholder="Name" name="from_name" required />
                         </InputContainer>
                         <InputContainer>
                             <Item
                                 type="email"
                                 placeholder="Email"
-                                name="email"
+                                name="from_email"
                                 required
                             />
                         </InputContainer>
