@@ -11,7 +11,6 @@ import {
     Title,
     Desc,
     Button,
-    OverLay,
     ButtonContainer,
 } from "./style";
 import netflix from "../../img/netflix.png";
@@ -64,9 +63,9 @@ const Projects = () => {
                 <Heading>Projects</Heading>
                 <Project>
                     {
-                        projects.map(project => {
+                        projects.map((project, index) => {
                             return (
-                                <Item>
+                                <Item key={index}>
                                     <ImageContainer>
                                         <Image src={project.image} />
                                     </ImageContainer>

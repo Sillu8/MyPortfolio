@@ -1,5 +1,5 @@
 import React from "react";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import {
     Button,
     ContactForm,
@@ -15,25 +15,28 @@ import {
     SocialMediaContainer,
     Icon,
 } from "./style";
-import { SiGithub, SiInstagram, SiGmail } from "react-icons/si";
+import { SiGithub, SiGmail } from "react-icons/si";
 import contact from "../../svg/undraw_contact_us_-15-o2.svg";
 
 const SERVICE_ID = process.env.REACT_APP_SERVICE_ID;
 const TEMPLATE_ID = process.env.REACT_APP_TEMPLATE_ID;
-const USER_ID = process.env.REACT_APP_USER_ID;
+const PUBLIC_KEY = process.env.REACT_APP_PUBLIC_KEY;
 
 const Footer = () => {
-    const sendEmail = e => {
+    const sendEmail = async (e) => {
         e.preventDefault();
-
-        emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, USER_ID).then(
-            result => {
-                console.log(result.text);
-            },
-            error => {
-                console.log(error.text);
-            }
-        );
+        try {
+            const result = await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, PUBLIC_KEY);
+            console.log(result)
+        } catch (error) {
+            console.log(error);
+        }
+        // emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, USER_ID)
+        //     .then(result => {
+        //         console.log(result.text);
+        //     }).catch(error => {
+        //         console.log(error.text);
+        //     })
         e.target.reset();
     };
 
